@@ -1,0 +1,33 @@
+id: unused-imports-python
+language: python
+severity: warning
+message: |
+  Unused import detected. Remove unused imports to keep code clean and reduce bundle size.
+
+note: |
+  Unused imports clutter the code and can slow down import times. They also make it unclear what dependencies a module actually uses.
+  
+  Example fix:
+  ```python
+  # Bad
+  import json
+  import os    # Not used
+  import sys   # Not used
+  
+  def process_data():
+      data = {"test": "value"}
+      return json.dumps(data)
+  
+  # Good
+  import json
+  
+  def process_data():
+      data = {"test": "value"}
+      return json.dumps(data)
+  ```
+
+rule:
+  pattern: |
+    import $MODULE
+    $$$
+    # No usage of $MODULE found in the rest of the file

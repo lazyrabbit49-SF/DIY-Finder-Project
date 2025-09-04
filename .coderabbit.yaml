@@ -1,0 +1,26 @@
+reviews:
+  auto_review:
+    enabled: true
+  
+  tools:
+    ast-grep:
+      essential_rules: true
+      rule_dirs:
+        - "rules"
+  
+  path_filters:
+    - "!**/*.lock"
+    - "!**/node_modules/**"
+    - "!**/venv/**"
+    - "!**/__pycache__/**"
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/data/**"
+  
+  path_instructions:
+    - path: "backend/**/*.py"
+      instructions: "Review Python code for SQL injection, hardcoded secrets, and empty except blocks"
+    - path: "frontend/**/*.tsx"
+      instructions: "Review TypeScript code for hardcoded secrets, empty catch blocks, and performance issues"
+    - path: "frontend/**/*.ts"
+      instructions: "Review TypeScript code for security and performance issues"

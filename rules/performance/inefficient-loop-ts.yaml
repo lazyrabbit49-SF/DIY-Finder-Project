@@ -1,0 +1,32 @@
+id: inefficient-loop-typescript
+language: typescript
+severity: warning
+message: |
+  Inefficient array concatenation in loop detected. This creates O(n²) complexity.
+  Use push() or spread operator outside loops for better performance.
+
+note: |
+  Concatenating arrays in loops creates new arrays on each iteration, causing poor performance.
+  
+  Example fix:
+  ```typescript
+  // Bad
+  let results = [];
+  for (let i = 0; i < items.length; i++) {
+      results = results.concat(items[i]);
+  }
+  
+  // Good
+  let results = [];
+  for (let i = 0; i < items.length; i++) {
+      results.push(...items[i]);
+  }
+  ```
+
+rule:
+  pattern: |
+    for ($INIT; $COND; $UPDATE) {
+        $$$
+        $ARR = $ARR.concat($ITEM)
+        $$$
+    }

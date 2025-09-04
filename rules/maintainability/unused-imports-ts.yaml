@@ -1,0 +1,34 @@
+id: unused-imports-ts
+language: typescript
+severity: warning
+message: |
+  Unused import detected. Remove unused imports to keep code clean and reduce bundle size.
+
+note: |
+  Unused imports clutter the code and can slow down build times. They also make it unclear what dependencies a module actually uses.
+  
+  Example fix:
+  ```typescript
+  // Bad
+  import React, { useState, useEffect } from 'react'
+  import { Button } from './Button'  // Not used
+  
+  function MyComponent() {
+    const [count, setCount] = useState(0)
+    return <div>{count}</div>
+  }
+  
+  // Good
+  import React, { useState } from 'react'
+  
+  function MyComponent() {
+    const [count, setCount] = useState(0)
+    return <div>{count}</div>
+  }
+  ```
+
+rule:
+  pattern: |
+    import $IMPORT from $SOURCE
+    $$$
+    # No usage of $IMPORT found in the rest of the file

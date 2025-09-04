@@ -1,0 +1,23 @@
+id: sql-injection-python
+language: python
+severity: error
+message: |
+  SQL injection vulnerability detected. User input is directly concatenated into SQL query.
+  This allows attackers to execute arbitrary SQL commands.
+
+note: |
+  SQL injection is one of the most dangerous security vulnerabilities.
+  Use parameterized queries instead.
+  
+  Example fix:
+  ```python
+  # Bad
+  query = f"SELECT * FROM users WHERE username = '{username}'"
+  
+  # Good
+  query = "SELECT * FROM users WHERE username = ?"
+  cursor.execute(query, (username,))
+  ```
+
+rule:
+  pattern: cursor.execute($QUERY)

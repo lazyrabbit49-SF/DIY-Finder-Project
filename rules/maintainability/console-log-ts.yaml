@@ -1,0 +1,7 @@
+id: console-log-ts
+language: typescript
+message: "Console.log detected in production code. Use proper logging instead of console statements."
+rule:
+  pattern: "console.log($EXPR)"
+
+

@@ -1,0 +1,16 @@
+id: ai-prompt-injection-python
+language: python
+severity: error
+message: |
+  AI prompt injection vulnerability detected. User input is directly embedded in system prompts
+  and AI-generated queries are executed without validation.
+rule:
+  all:
+    - pattern: |
+        $PROMPT = f"""$$$"""
+    - has:
+        pattern: cursor.execute($QUERY)
+    - inside:
+        pattern: |
+          def $FUNC($$$username$$$, $$$message$$$):
+            $$$

@@ -1,0 +1,43 @@
+id: long-function-python
+language: python
+severity: warning
+message: |
+  Function is too long (over 50 lines). Long functions are hard to understand, test, and maintain.
+  Consider breaking it into smaller, focused functions.
+
+note: |
+  Functions should ideally be under 20 lines. Long functions indicate:
+  - Multiple responsibilities
+  - Complex logic that's hard to follow
+  - Difficult testing and debugging
+  
+  Example fix:
+  ```python
+  # Bad - 60+ line function
+  def process_user_data(user_data):
+      # 60 lines of mixed logic
+      pass
+  
+  # Good - broken into focused functions
+  def validate_user_data(data):
+      # validation logic
+      pass
+  
+  def transform_user_data(data):
+      # transformation logic
+      pass
+  
+  def process_user_data(user_data):
+      validated = validate_user_data(user_data)
+      return transform_user_data(validated)
+  ```
+
+rule:
+  all:
+    - pattern: "def $FUNC($ARGS): $$$BODY"
+    - has:
+        kind: block
+        field: body
+        has:
+          kind: expression_statement
+          min: 50

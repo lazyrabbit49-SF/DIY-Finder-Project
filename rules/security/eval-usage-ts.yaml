@@ -1,0 +1,8 @@
+# rules/security/eval-usage-ts.yaml
+id: eval-usage-typescript
+language: typescript
+severity: error
+message: |
+  Use of eval() detected. This is a serious security vulnerability that allows arbitrary code execution.
+rule:
+  pattern: eval($EXPR)

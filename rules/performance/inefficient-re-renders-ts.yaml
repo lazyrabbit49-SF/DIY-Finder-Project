@@ -1,0 +1,25 @@
+id: inefficient-re-renders-ts
+language: typescript
+severity: warning
+message: |
+  Inline object/function in JSX detected. This causes unnecessary re-renders.
+  Move objects and functions outside render or use useMemo/useCallback.
+
+note: |
+  Inline objects and functions in JSX create new references on every render, causing child components to re-render unnecessarily.
+  
+  Example fix:
+  ```tsx
+  // Bad
+  <Component style={{margin: 10}} onClick={() => handleClick()} />
+  
+  // Good
+  const style = {margin: 10};
+  const handleClick = useCallback(() => {
+      // handle click
+  }, []);
+  <Component style={style} onClick={handleClick} />
+  ```
+
+rule:
+  pattern: "<$COMPONENT $PROPS={{$$$OBJECT}}"

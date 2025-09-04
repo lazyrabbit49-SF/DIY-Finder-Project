@@ -1,0 +1,24 @@
+id: n-plus-one-query-python
+language: python
+severity: warning
+message: |
+  Potential N+1 query problem detected. Database queries inside loops can cause performance issues.
+  Consider using bulk operations or joins instead.
+
+note: |
+  N+1 queries occur when you execute one query to get N records, then N additional queries for related data.
+  
+  Example fix:
+  ```python
+  # Bad - N+1 queries
+  for user in users:
+      posts = get_user_posts(user.id)  # N queries
+  
+  # Good - Single query with join
+  posts = get_all_posts_with_users()  # 1 query
+  ```
+
+rule:
+  pattern: |
+    for $ITEM in $COLLECTION:
+        $RESULT = get_user_posts($ITEM["id"])
