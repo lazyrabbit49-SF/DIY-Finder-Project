@@ -1,26 +1,29 @@
+language: en-US
+tone_instructions: "Be concise and focus on critical issues only"
 reviews:
+  profile: assertive
+  commit_status: true
+  high_level_summary: true
+  path_filters:
+    - "!node_modules/**"
+    - "!dist/**"
+    - "src/**"
+  tools:
+    eslint:
+      enabled: true
+    ruff:
+      enabled: true
+    gitleaks:
+      enabled: true
   auto_review:
     enabled: true
-  
-  tools:
-    ast-grep:
-      essential_rules: true
-      rule_dirs:
-        - "rules"
-  
-  path_filters:
-    - "!**/*.lock"
-    - "!**/node_modules/**"
-    - "!**/venv/**"
-    - "!**/__pycache__/**"
-    - "!**/dist/**"
-    - "!**/build/**"
-    - "!**/data/**"
-  
-  path_instructions:
-    - path: "backend/**/*.py"
-      instructions: "Review Python code for SQL injection, hardcoded secrets, and empty except blocks"
-    - path: "frontend/**/*.tsx"
-      instructions: "Review TypeScript code for hardcoded secrets, empty catch blocks, and performance issues"
-    - path: "frontend/**/*.ts"
-      instructions: "Review TypeScript code for security and performance issues"
+    drafts: false
+    ignore_title_keywords:
+      - "wip"
+      - "draft"
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "**/.cursorrules"
+      - "**/CODING_STANDARDS.md"
