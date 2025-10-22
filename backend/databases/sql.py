@@ -5,6 +5,7 @@ DELIBERATE VULNERABILITIES FOR CODERABBIT DEMO
 
 import sqlite3
 import json
+import logging
 from datetime import datetime
 from config import DATABASE_PATH
 
@@ -114,8 +115,7 @@ def create_user(username: str, password: str, email: str, phone_number: str, ful
         }
         
     except Exception as e:
-        # MAINTAINABILITY ISSUE - Generic exception handling
-        print(e)
+        logging.error(f"Error creating user: {e}")
         return None
     finally:
         conn.close()
